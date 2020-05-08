@@ -78,18 +78,15 @@ void newCommand(int argc, std::string argv[]) {
   }
 
   if (argv[3] == "-p") {
-    std::string histPath = std::string(getenv("HOME")) + "/.bash_history";
+    std::string histPath = "/tmp/term-hist";
+    std::ifstream histFile(histPath);
 
-    std::ifstream comFile(histPath);
-    std::string curLine;
-    std::string lastCommand;
-    if (comFile.good()) {
-      while (!comFile.eof()) {
-        lastCommand = curLine;
-        std::getline(comFile, curLine);
-        // std::cout << curLine << std::endl;
-      }
+    std::string lastCommand = "";
+    if (histFile.good()) {
+      while (lastCommand == "")
+        std::getline(histFile, lastCommand);
     }
+    lastCommand = lastCommand.substr(lastCommand.find("  ")+2, lastCommand.length());
     std::ofstream commandsFile;
     commandsFile.open(commandFile, std::ios_base::app);
     commandsFile << newToken << separator << lastCommand << std::endl;
@@ -158,8 +155,9 @@ int main(int argc, char *argvc[]) {
   for (int i = 0; i < argc; i++) {
     argv[i] = argvc[i];
   }
-  // commandFile = getPath().substr(0, getPath().length()-programNameLength) + commandFile;
-  
+  // commandFile = getPath().substr(0, getPath().length()-programNameLength) +
+  // commandFile;
+
   if (argc == 1) {
     printHelp();
   }
