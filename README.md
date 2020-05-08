@@ -2,7 +2,7 @@
 Fast and easily changeable shortcuts to run Linux shell commands
 
 ## Quckstart
-*WARNING: Still extremely buggy, be careful and don't use with any *
+*WARNING: Still extremely buggy, be careful and don't use with any sudo or rm commands*
 1. Clone repository
 2. In the directory, run `./s`. You should get some usage output.
 3. Run `./s -a 1 "echo hello world"`. This sets the shortcut named 1 to echo hello world.
