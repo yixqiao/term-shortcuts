@@ -10,13 +10,12 @@
 #include <string>
 #include <vector>
 
-#define ecout std::cout << "echo"
+#define ecout std::cout << "echo "
 
 // using namespace std::;
 
 void printHelp() {
-  std::cout << "echo usage: sc [<command>]";
-  std::cout << std::endl;
+  ecout << "usage: sc [<command>]" << std::endl;
   exit(0);
 }
 
@@ -48,7 +47,6 @@ int main(int argc, char *argvc[]) {
     }
   } else {
     if (argv[1] == "-a") {
-      std::string histfile = "~/.bash_history";
       std::map<std::string, std::string> commands;
 
       if (argv[2].find("-") != std::string::npos) {
@@ -65,29 +63,34 @@ int main(int argc, char *argvc[]) {
           std::string curLine;
           std::getline(comFile, curLine);
           std::string token = curLine.substr(0, curLine.find("-"));
-          std::string command =
-              curLine.substr(curLine.find("-") + 1, curLine.length());
-          commands.insert(std::make_pair(token, command));
+          if (token == newToken) {
+            ecout << "This token is already taken!" << std::endl;
+            exit(0);
+          }
         }
       }
 
       if (argc < 4) {
         printHelp();
       }
+
       if (argv[3] == "-p") {
-        std::string histPath = "/home/yixuan/.bash_history";
+        std::string histPath = std::string(getenv("HOME")) + "/.bash_history";
 
         std::ifstream comFile(histPath);
         std::string curLine;
-        std::string prevLine;
+        std::string lastCommand;
         if (comFile.good()) {
           while (!comFile.eof()) {
-            prevLine = curLine;
+            lastCommand = curLine;
             std::getline(comFile, curLine);
             // std::cout << curLine << std::endl;
           }
         }
-        std::cout << prevLine << std::endl;
+        std::ofstream commandsFile;
+        commandsFile.open("commands.txt", std::ios_base::app);
+        commandsFile << newToken << " " <<  lastCommand << std::endl;
+        ecout << "Write successful: " << newToken << ": " << lastCommand << std::endl;
       }
     }
   }
