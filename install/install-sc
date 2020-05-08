@@ -10,4 +10,6 @@ cp ../schelper /usr/share/term-shortcuts
 # Create config folder
 # mkdir ~/.config/term-shortcuts
 
-# echo -e "\nPROMPT_COMMAND='history -a'\n" >> ~/.bashrc
+# Bash alias
+# Add "alias s='source s'" to .bashrc
+echo -e "\nalias s='source s'\n" >> ~/.bashrc

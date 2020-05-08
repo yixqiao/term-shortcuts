@@ -42,7 +42,11 @@ void runCommand(int argc, std::string argv[]) {
       if (token == com) {
         std::cout << curLine.substr(curLine.find(separator) + 1,
                                     curLine.length())
-                  << std::endl;
+                  << " ";
+        for(int i=2; i<argc; i++){
+          std::cout << argv[i] << " ";
+        }
+        std::cout << std::endl;
         exit(0);
       }
     }
@@ -86,7 +90,8 @@ void newCommand(int argc, std::string argv[]) {
       while (lastCommand == "")
         std::getline(histFile, lastCommand);
     }
-    lastCommand = lastCommand.substr(lastCommand.find("  ")+2, lastCommand.length());
+    lastCommand =
+        lastCommand.substr(lastCommand.find("  ") + 2, lastCommand.length());
     std::ofstream commandsFile;
     commandsFile.open(commandFile, std::ios_base::app);
     commandsFile << newToken << separator << lastCommand << std::endl;
@@ -161,7 +166,7 @@ int main(int argc, char *argvc[]) {
   if (argc == 1) {
     printHelp();
   }
-  if (argc == 2 && argv[1][0] != '-') {
+  if (argc >= 2 && argv[1][0] != '-') {
     runCommand(argc, argv);
   } else if (argv[1] == "-a") {
     newCommand(argc, argv);

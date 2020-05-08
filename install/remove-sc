@@ -6,7 +6,7 @@ rm /usr/local/bin/s
 # Remove schelper
 rm -r /usr/share/term-shortcuts
 
-# Remove config folder
-# rm -r ~/.config/term-shortcuts
+# Remove config file
+# rm ~/.config/term-shortcuts
 
 # Manually remove from .bashrc
