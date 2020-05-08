@@ -4,10 +4,12 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <limits.h>
 #include <map>
 #include <memory>
 #include <stdexcept>
 #include <string>
+#include <unistd.h>
 #include <vector>
 
 #define ecout std::cout << "echo "
@@ -15,7 +17,8 @@
 // using namespace std::;
 
 std::string separator = ": ";
-std::string commandFile = "commands.txt";
+std::string commandFile;
+const int programNameLength = 8;
 
 void printHelp() {
   std::cout << "printf \"";
@@ -142,11 +145,21 @@ void listCommands(int argc, std::string argv[]) {
   std::cout << "cat " << commandFile << std::endl;
 }
 
+std::string getPath() {
+  char result[PATH_MAX];
+  ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
+  return std::string(result, (count > 0) ? count : 0);
+}
+
 int main(int argc, char *argvc[]) {
+  commandFile = std::string(getenv("HOME")) + "/.config/term-shortcuts";
+
   std::string argv[argc];
   for (int i = 0; i < argc; i++) {
     argv[i] = argvc[i];
   }
+  // commandFile = getPath().substr(0, getPath().length()-programNameLength) + commandFile;
+  
   if (argc == 1) {
     printHelp();
   }

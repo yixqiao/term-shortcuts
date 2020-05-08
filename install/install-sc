@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Copy shortcuts bash file
+cp s /usr/local/bin
+
+# Copy schelper
+mkdir /usr/share/term-shortcuts
+cp schelper /usr/share/term-shortcuts
+
+# echo -e "\nPROMPT_COMMAND='history -a'\n" >> ~/.bashrc

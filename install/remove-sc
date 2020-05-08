@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Remove bash file
+rm /usr/local/bin/s
+
+# Remove schelper
+rm -r /usr/share/term-shortcuts
+
+# Manually remove from .bashrc
