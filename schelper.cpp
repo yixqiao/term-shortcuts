@@ -18,7 +18,12 @@ std::string separator = ": ";
 std::string commandFile = "commands.txt";
 
 void printHelp() {
-  ecout << "usage: sc [<command>]" << std::endl;
+  std::cout << "printf \"";
+  std::cout << "s <token>\\n";
+  std::cout << "s -a <token> [-p] [<command>]\\n";
+  std::cout << "s -r <token>\\n";
+  std::cout << "s -l";
+  std::cout << "\\n\"" << std::endl;
   exit(0);
 }
 
