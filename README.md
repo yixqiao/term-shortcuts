@@ -1,1 +1,1 @@
-term-shortcuts
+# Terminal shortcuts
