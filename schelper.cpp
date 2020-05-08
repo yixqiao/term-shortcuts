@@ -15,6 +15,7 @@
 // using namespace std::;
 
 std::string separator = ": ";
+std::string commandFile = "commands.txt";
 
 void printHelp() {
   ecout << "usage: sc [<command>]" << std::endl;
@@ -24,7 +25,7 @@ void printHelp() {
 void runCommand(int argc, std::string argv[]) {
   // Run command
   std::string com = argv[1];
-  std::ifstream comFile("commands.txt");
+  std::ifstream comFile(commandFile);
   if (comFile.good()) {
     while (!comFile.eof()) {
       std::string curLine;
@@ -51,7 +52,7 @@ void newCommand(int argc, std::string argv[]) {
   std::string newToken = argv[2];
 
   // Read commands
-  std::ifstream comFile("commands.txt");
+  std::ifstream comFile(commandFile);
   if (comFile.good()) {
     while (!comFile.eof()) {
       std::string curLine;
@@ -82,7 +83,7 @@ void newCommand(int argc, std::string argv[]) {
       }
     }
     std::ofstream commandsFile;
-    commandsFile.open("commands.txt", std::ios_base::app);
+    commandsFile.open(commandFile, std::ios_base::app);
     commandsFile << newToken << separator << lastCommand << std::endl;
     ecout << "Write successful: " << newToken << ": \"" << lastCommand << "\""
           << std::endl;
@@ -92,7 +93,7 @@ void newCommand(int argc, std::string argv[]) {
       newCommand += argv[i] + ((i == argc - 1) ? "" : " ");
     }
     std::ofstream commandsFile;
-    commandsFile.open("commands.txt", std::ios_base::app);
+    commandsFile.open(commandFile, std::ios_base::app);
     commandsFile << newToken << separator << newCommand << std::endl;
     ecout << "Write successful: " << newToken << ": \"" << newCommand << "\""
           << std::endl;
@@ -102,7 +103,7 @@ void newCommand(int argc, std::string argv[]) {
 void removeCommand(int argc, std::string argv[]) {
   std::string removeToken = argv[2];
 
-  std::ifstream comFile("commands.txt");
+  std::ifstream comFile(commandFile);
   std::ofstream tmpFile("tmp");
 
   if (comFile.good()) {
@@ -111,13 +112,13 @@ void removeCommand(int argc, std::string argv[]) {
       std::getline(comFile, curLine);
       std::string token = curLine.substr(0, curLine.find(separator));
       if (token == removeToken)
-        ecout << "Removed " << curLine << std::endl;
+        ecout << "Remove successful: \"" << curLine << "\"" << std::endl;
       else
         tmpFile << curLine << std::endl;
     }
   }
 
-  std::ofstream wComFile("commands.txt");
+  std::ofstream wComFile(commandFile);
   std::ifstream rTmpFile("tmp");
 
   if (rTmpFile.good()) {
@@ -133,8 +134,7 @@ void removeCommand(int argc, std::string argv[]) {
 }
 
 void listCommands(int argc, std::string argv[]) {
-  std::cout << "cat "
-            << "commands.txt" << std::endl;
+  std::cout << "cat " << commandFile << std::endl;
 }
 
 int main(int argc, char *argvc[]) {
