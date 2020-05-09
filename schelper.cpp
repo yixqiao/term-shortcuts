@@ -1,17 +1,19 @@
+#include <algorithm>
 #include <array>
 #include <cassert>
+#include <cctype>
 #include <cstdio>
 #include <cstring>
 #include <fstream>
 #include <iostream>
 #include <limits.h>
+#include <locale>
 #include <map>
 #include <memory>
 #include <stdexcept>
 #include <string>
 #include <unistd.h>
 #include <vector>
-
 #define ecout std::cout << "echo "
 
 // using namespace std::;
@@ -43,7 +45,7 @@ void runCommand(int argc, std::string argv[]) {
         std::cout << curLine.substr(curLine.find(separator) + 1,
                                     curLine.length())
                   << " ";
-        for(int i=2; i<argc; i++){
+        for (int i = 2; i < argc; i++) {
           std::cout << argv[i] << " ";
         }
         std::cout << std::endl;
@@ -51,6 +53,11 @@ void runCommand(int argc, std::string argv[]) {
       }
     }
   }
+}
+
+static inline void ltrim(std::string &s) {
+  s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+                                  [](int ch) { return !std::isspace(ch); }));
 }
 
 void newCommand(int argc, std::string argv[]) {
@@ -90,6 +97,7 @@ void newCommand(int argc, std::string argv[]) {
       while (lastCommand == "")
         std::getline(histFile, lastCommand);
     }
+    ltrim(lastCommand);
     lastCommand =
         lastCommand.substr(lastCommand.find("  ") + 2, lastCommand.length());
     std::ofstream commandsFile;

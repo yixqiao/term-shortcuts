@@ -9,4 +9,7 @@ rm -r /usr/share/term-shortcuts
 # Remove config file
 # rm ~/.config/term-shortcuts
 
-# Manually remove from .bashrc
+# Remove from .bashrc
+sed '/#Alias for term-shortcuts/d' ~/.bashrc > /tmp/new-bashrc
+sed '/alias s='\''source s'\''/d' ~/.bashrc > /tmp/new-bashrc
+cat /tmp/new-bashrc > ~/.bashrc

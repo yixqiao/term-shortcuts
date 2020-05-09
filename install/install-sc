@@ -12,4 +12,4 @@ cp ../schelper /usr/share/term-shortcuts
 
 # Bash alias
 # Add "alias s='source s'" to .bashrc
-echo -e "\nalias s='source s'\n" >> ~/.bashrc
+echo -e "\n#Alias for term-shortcuts\nalias s='source s'\n" >> ~/.bashrc
