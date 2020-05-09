@@ -2,11 +2,15 @@
 Fast and easily changeable shortcuts to run Linux shell commands
 
 ## Features
-This program allows you to set and manage shortcuts to run Linux shell commands.  
-It emphasizes speed in running, setting, and removing shortcuts.  
-It somewhat resembles aliases; the main advantages are that you can set and remove shortcuts in just a few keystrokes, and that you do not have to worry about name collisions with other commands.
+- Set and manage shortcuts to run Linux shell commands  
+- Speed in running, setting, and removing shortcuts  
+- Advantages over alias:
+  - Set and remove shortcuts quickly (no need to edit .bashrc)
+  - No name collisions
+- Save and use instantly in all terminal sessions
 
-## Quckstart
+
+## Quickstart
 1. Clone repository
 2. Enter the folder "install" and run `sudo ./install-sc`.
 3. Open a new terminal and type `s -h`. You should get some usage output.
@@ -22,10 +26,15 @@ It somewhat resembles aliases; the main advantages are that you can set and remo
 - Command arguments
   1. `s -a lg "ls | grep"`
   2. `s lg -i desktop` searches for files matching the pattern "desktop" ignoring case
-- History
+- Use history
   1. `echo hello`
   2. `s -a e -p` sets shortcut "e" to the previous command
   3. `s e` should echo hello
+- Save directory
+  1. Go into any directory
+  2. `s -a d1 cd $(pwd)` will create a shortcut that will enter the current directory
+  3. Go into a different directory
+  4. `s d1` will bring you back to the original directory
 - Functions
   1. `s -a a2f 'f(){ cat $1>>$2;}; f'` creates a function that will append the content of one file to another
   2. `echo hello > b.txt`
