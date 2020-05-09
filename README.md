@@ -30,9 +30,9 @@ Fast and easily changeable shortcuts to run Linux shell commands
 - Command arguments
   1. `s -a lg "ls | grep"`
   2. `s lg -i desktop` searches for files matching the pattern "desktop" ignoring case
-- Use history
+- Use previous command
   1. `echo hello`
-  2. `s -a e -p` sets shortcut "e" to the previous command
+  2. `s -a e !!` sets shortcut "e" to the previous command
   3. `s e` should echo hello
 - Save directory
   1. Go into any directory
@@ -41,10 +41,10 @@ Fast and easily changeable shortcuts to run Linux shell commands
   4. `s d1` will bring you back to the original directory
 - Functions
   1. `s -a a2f 'f(){ cat $1>>$2;}; f'` creates a function that will append the content of one file to another
-  2. `echo hello > b.txt`
-  3. `echo world > a.txt`
-  4. `s a2f a.txt b.txt`
-  5. `cat b.txt` should now output hello world
+  2. `echo hello > a.txt`
+  3. `echo world > b.txt`
+  4. `s a2f b.txt a.txt` the contents of `a.txt` will be appended to `b.txt`
+  5. `cat b.txt` should now output hello world (with a newline in between)
 
 ## Usage
 - `s`

@@ -25,7 +25,7 @@ const int programNameLength = 8;
 void printHelp() {
   std::cout << "printf \"";
   std::cout << "s <token>\\n";
-  std::cout << "s -a <token> [-p] [<command>]\\n";
+  std::cout << "s -a <token> <command>\\n";
   std::cout << "s -r <token>\\n";
   std::cout << "s -l";
   std::cout << "\\n\"" << std::endl;
@@ -65,7 +65,7 @@ static inline void ltrim(std::string &s) {
 void newCommand(int argc, std::string argv[]) {
   std::map<std::string, std::string> commands;
 
-  if(argc < 4){
+  if (argc < 4) {
     printHelp();
   }
   if (argv[2] == "-h" || argv[2] == "-a" || argv[2] == "-rm") {
@@ -88,33 +88,14 @@ void newCommand(int argc, std::string argv[]) {
     }
   }
 
-  if (argv[3] == "-p") {
-    std::string histPath = "/tmp/term-hist";
-    std::ifstream histFile(histPath);
-
-    std::string lastCommand = "";
-    if (histFile.good()) {
-      while (lastCommand == "")
-        std::getline(histFile, lastCommand);
-    }
-    ltrim(lastCommand);
-    lastCommand =
-        lastCommand.substr(lastCommand.find("  ") + 2, lastCommand.length());
-    std::ofstream commandsFile;
-    commandsFile.open(commandFile, std::ios_base::app);
-    commandsFile << newToken << separator << lastCommand << std::endl;
-    ecout << "Added: " << newToken << ": \"" << lastCommand << "\""
-          << std::endl;
-  } else {
-    std::string newCommand = "";
-    for (int i = 3; i < argc; i++) {
-      newCommand += argv[i] + ((i == argc - 1) ? "" : " ");
-    }
-    std::ofstream commandsFile;
-    commandsFile.open(commandFile, std::ios_base::app);
-    commandsFile << newToken << separator << newCommand << std::endl;
-    ecout << "Added: " << newToken << ": \"" << newCommand << "\"" << std::endl;
+  std::string newCommand = "";
+  for (int i = 3; i < argc; i++) {
+    newCommand += argv[i] + ((i == argc - 1) ? "" : " ");
   }
+  std::ofstream commandsFile;
+  commandsFile.open(commandFile, std::ios_base::app);
+  commandsFile << newToken << separator << newCommand << std::endl;
+  ecout << "Added: " << newToken << ": \"" << newCommand << "\"" << std::endl;
 }
 
 void removeCommand(int argc, std::string argv[]) {
