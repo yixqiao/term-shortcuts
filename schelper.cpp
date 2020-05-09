@@ -65,6 +65,9 @@ static inline void ltrim(std::string &s) {
 void newCommand(int argc, std::string argv[]) {
   std::map<std::string, std::string> commands;
 
+  if(argc < 4){
+    printHelp();
+  }
   if (argv[2] == "-h" || argv[2] == "-a" || argv[2] == "-rm") {
     std::cout << "Reserved name" << std::endl;
     printHelp();
@@ -83,10 +86,6 @@ void newCommand(int argc, std::string argv[]) {
         exit(0);
       }
     }
-  }
-
-  if (argc < 4) {
-    printHelp();
   }
 
   if (argv[3] == "-p") {
@@ -122,7 +121,7 @@ void removeCommand(int argc, std::string argv[]) {
   std::string removeToken = argv[2];
 
   std::ifstream comFile(commandFile);
-  std::ofstream tmpFile("tmp");
+  std::ofstream tmpFile("/tmp/termtmp");
 
   bool foundToken = false;
 
@@ -145,7 +144,7 @@ void removeCommand(int argc, std::string argv[]) {
   }
 
   std::ofstream wComFile(commandFile);
-  std::ifstream rTmpFile("tmp");
+  std::ifstream rTmpFile("/tmp/termtmp");
 
   if (rTmpFile.good()) {
     while (!rTmpFile.eof()) {
