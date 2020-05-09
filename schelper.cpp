@@ -151,8 +151,9 @@ void removeCommand(int argc, std::string argv[]) {
   exit(0);
 }
 
-void listCommands(int argc, std::string argv[]) {
+void listCommands() {
   std::cout << "cat " << commandFile << std::endl;
+  exit(0);
 }
 
 std::string getPath() {
@@ -172,15 +173,15 @@ int main(int argc, char *argvc[]) {
   // commandFile;
 
   if (argc == 1) {
-    printHelp();
+    listCommands();
   }
   if (argc >= 2 && argv[1][0] != '-') {
     runCommand(argc, argv);
+  } else if (argv[1] == "-h") {
+    printHelp();
   } else if (argv[1] == "-a") {
     newCommand(argc, argv);
   } else if (argv[1] == "-r") {
     removeCommand(argc, argv);
-  } else if (argv[1] == "-l") {
-    listCommands(argc, argv);
   }
 }

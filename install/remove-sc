@@ -11,5 +11,6 @@ rm -r /usr/share/term-shortcuts
 
 # Remove from .bashrc
 sed '/#Alias for term-shortcuts/d' ~/.bashrc > /tmp/new-bashrc
+cat /tmp/new-bashrc > ~/.bashrc
 sed '/alias s='\''source s'\''/d' ~/.bashrc > /tmp/new-bashrc
 cat /tmp/new-bashrc > ~/.bashrc
