@@ -53,6 +53,8 @@ void runCommand(int argc, std::string argv[]) {
       }
     }
   }
+  ecout << "Command not found" << std::endl;
+  exit(0);
 }
 
 static inline void ltrim(std::string &s) {
@@ -63,9 +65,8 @@ static inline void ltrim(std::string &s) {
 void newCommand(int argc, std::string argv[]) {
   std::map<std::string, std::string> commands;
 
-  if (argv[2].find("-") != std::string::npos) {
-    std::cout << "Commands cannot contain the character \"-\"." << std::endl
-              << std::endl;
+  if (argv[2] == "-h" || argv[2] == "-a" || argv[2] == "-rm") {
+    std::cout << "Reserved name" << std::endl;
     printHelp();
   }
   std::string newToken = argv[2];
@@ -78,7 +79,7 @@ void newCommand(int argc, std::string argv[]) {
       std::getline(comFile, curLine);
       std::string token = curLine.substr(0, curLine.find(separator));
       if (token == newToken) {
-        ecout << "This token is already taken!" << std::endl;
+        ecout << "Already taken" << std::endl;
         exit(0);
       }
     }
@@ -103,7 +104,7 @@ void newCommand(int argc, std::string argv[]) {
     std::ofstream commandsFile;
     commandsFile.open(commandFile, std::ios_base::app);
     commandsFile << newToken << separator << lastCommand << std::endl;
-    ecout << "Write successful: " << newToken << ": \"" << lastCommand << "\""
+    ecout << "Added: " << newToken << ": \"" << lastCommand << "\""
           << std::endl;
   } else {
     std::string newCommand = "";
@@ -113,8 +114,7 @@ void newCommand(int argc, std::string argv[]) {
     std::ofstream commandsFile;
     commandsFile.open(commandFile, std::ios_base::app);
     commandsFile << newToken << separator << newCommand << std::endl;
-    ecout << "Write successful: " << newToken << ": \"" << newCommand << "\""
-          << std::endl;
+    ecout << "Added: " << newToken << ": \"" << newCommand << "\"" << std::endl;
   }
 }
 
@@ -124,16 +124,24 @@ void removeCommand(int argc, std::string argv[]) {
   std::ifstream comFile(commandFile);
   std::ofstream tmpFile("tmp");
 
+  bool foundToken = false;
+
   if (comFile.good()) {
     while (!comFile.eof()) {
       std::string curLine;
       std::getline(comFile, curLine);
       std::string token = curLine.substr(0, curLine.find(separator));
-      if (token == removeToken)
-        ecout << "Remove successful: \"" << curLine << "\"" << std::endl;
-      else
+      if (token == removeToken) {
+        ecout << "Removed: \"" << curLine << "\"" << std::endl;
+        foundToken = true;
+      } else
         tmpFile << curLine << std::endl;
     }
+  }
+
+  if (!foundToken) {
+    ecout << "Command not found" << std::endl;
+    exit(0);
   }
 
   std::ofstream wComFile(commandFile);
@@ -175,13 +183,13 @@ int main(int argc, char *argvc[]) {
   if (argc == 1) {
     listCommands();
   }
-  if (argc >= 2 && argv[1][0] != '-') {
-    runCommand(argc, argv);
-  } else if (argv[1] == "-h") {
+  if (argv[1] == "-h") {
     printHelp();
   } else if (argv[1] == "-a") {
     newCommand(argc, argv);
-  } else if (argv[1] == "-r") {
+  } else if (argv[1] == "-rm") {
     removeCommand(argc, argv);
+  } else {
+    runCommand(argc, argv);
   }
 }
