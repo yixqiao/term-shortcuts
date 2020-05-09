@@ -2,8 +2,12 @@
 Fast and easily changeable shortcuts to run Linux shell commands
 
 ## Features
-- Set and manage shortcuts to run Linux shell commands  
-- Speed in running, setting, and removing shortcuts  
+- Set and manage shortcuts to run Linux shell commands
+- Speed in running, setting, and removing shortcuts
+  - set: `s -a t name-of-long-command`
+  - run: `s t` will run `name-of-long-command`
+  - remove: `s -rm t`
+- Ability to pass arguments and use functions
 - Advantages over alias:
   - Set and remove shortcuts quickly (no need to edit .bashrc)
   - No name collisions
