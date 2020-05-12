@@ -26,7 +26,7 @@ void printHelp() {
   std::cout << "printf \"";
   std::cout << "s <token>\\n";
   std::cout << "s -a <token> <command>\\n";
-  std::cout << "s -r <token>\\n";
+  std::cout << "s -rm <token>\\n";
   std::cout << "s -l";
   std::cout << "\\n\"" << std::endl;
   exit(0);
