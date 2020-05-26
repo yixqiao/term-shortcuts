@@ -54,10 +54,8 @@ Fast and easily changeable shortcuts to run Linux shell commands
 - `s <name> [<args>]`
   - Run command with specified name
   - Any arguments are passed to the command
-- `s -a <token> [-p] [<command>]`
+- `s -a <token> <command> [<args>]`
   - Add new command with name token
   - New token name can be comprised of any alphanumeric sequence (excluding `-h`, `-a`, `-rm-`, spaces, and other bash reserved characters)
-  - Use -p to get the previously-run command
-  - Without -p, the rest of the line is treated as the command
 - `s -rm <name>`
   - Remove command with specified name
