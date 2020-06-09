@@ -14,14 +14,16 @@ Fast and easily changeable shortcuts to run Linux shell commands
 - Save and use instantly in all terminal sessions
 
 
-## Quickstart
+## Install
 1. Clone repository
 2. Enter the folder "install" and run `sudo ./install-sc`.
-3. Open a new terminal and type `s -h`. You should get some usage output.
-4. Run `s -a hw echo hello world`. This sets the shortcut with token hw.
-5. Run `s hw`. You should see hello world being echoed.
-6. Run `s`. The program wil print a list of valid commands (there should be only one so far).
-7. Run `s -rm hw` to remove the command to print hello world.
+
+## Quickstart
+1. Open a new terminal and type `s -h`. You should get some usage output.
+2. Run `s -a hw echo hello world`. This sets the shortcut with token hw.
+3. Run `s hw`. You should see hello world being echoed.
+4. Run `s`. The program wil print a list of valid commands (there should be only one so far).
+5. Run `s -rm hw` to remove the command to print hello world.
 
 ## Examples
 - Pipes
